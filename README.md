@@ -59,14 +59,14 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 ## Instruction Set
 
 |Mnemonic	|Size	|Opcode		|Clock¹	|cz	|Effect								|Remarks
-|----------------|-------|---------------|-------|-------|---------------------------------------------------------------|----------
-|**ADB**		|1	|14		|5	|cz	|`(P)+A→(P), (P+1)+B+c→(P+1), P+1→P`				|
+|---------------|-------|---------------|-------|-------|---------------------------------------------------------------|----------
+|**ADB**	|1	|14		|5	|cz	|`(P)+A→(P), (P+1)+B+c→(P+1), P+1→P`				|
 |**ADCM**	|1	|C4		|3	|cz	|`(P)+A+c→(P)`							|
 |**ADIA n**	|2	|74 XX		|4	|cz	|`A+n→A`							|
 |**ADIM n**	|2	|70 XX		|4	|cz	|`(P)+n→(P)`							|
-|**ADM**		|1	|44		|3	|cz	|`(P)+A→(P)`							|
-|**ADN**		|1	|0C		|7+3*I	|cz	|`(P)+A→(P)..(P-I)+c→(P-I), P-I-1→P, BCD`			|
-|**ADW**		|1	|0E		|7+3*I	|cz	|`(P)+(Q)→(P)..(P-I)+(Q-I)+c→(P-I), P-I-1→P, Q-I-2→Q, BCD`	|
+|**ADM**	|1	|44		|3	|cz	|`(P)+A→(P)`							|
+|**ADN**	|1	|0C		|7+3*I	|cz	|`(P)+A→(P)..(P-I)+c→(P-I), P-I-1→P, BCD`			|
+|**ADW**	|1	|0E		|7+3*I	|cz	|`(P)+(Q)→(P)..(P-I)+(Q-I)+c→(P-I), P-I-1→P, Q-I-2→Q, BCD`	|
 |**ANIA n**	|2	|64 XX		|4	|.z	|`A&n→A`							|
 |**ANID n**	|2	|D4 XX		|6	|.z	|`(DP)&n>(DP), (DP)→(R-1)`					|(R-1) used
 |**ANIM n**	|2	|60 XX		|4	|.z	|`(P)&n→(P)`							|
@@ -76,14 +76,14 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**CALL nm**	|3	|78 XX XX	|8	|..	|`PC+3→(R-1,R-2), R-2→R, nm→PC`					|
 |*CASE1 → PTC*	|	|		|	|	|								|
 |*CASE2 → DTC*	|	|		|	|	|								|
-|**CDN**		|1	|6F		|1+4*I	|.z	|<code>I→d, REPEAT d-1→d, P+1→P UNTIL I=FF||Xin=0</code>	|
+|**CDN**	|1	|6F		|1+4*I	|.z	|`I→d, REPEAT d-1→d, P+1→P UNTIL I=FF\|\|Xin=0`			|
 |**CLRA**	|1	|23		|2	|..	|`0→A, 0→H`							|= LDS, but S is always 0
 |**CPIA n**	|2	|67 XX		|4	|cz	|`A-n`								|
 |**CPID n**²	|2	|D7 XX		|6?	|cz	|`(DP)-n`							|(R-1) used, may not be fully implemented
 |**CPIM n**	|2	|63 XX		|4	|cz	|`(P)-n`							|
 |*CPCAL → PTC*	|	|		|	|	|								|
 |**CPMA**	|1	|C7		|3	|cz	|`(P)-A`							|
-|**CUP**		|1	|4F		|1+4*I	|.z	|<code>I→d, REPT d-1→d, P+1→P UNTIL I=FF||Xin=1</code>		|
+|**CUP**	|1	|4F		|1+4*I	|.z	|`I→d, REPT d-1→d, P+1→P UNTIL I=FF\|\|Xin=1`		|
 | 		|	|		|	|	|								|
 |**DATA**	|1	|35		|11+4*I	|..	|`(BA)...(BA+1)→(P)...(P+1)`					|
 |**DECA**	|1	|43		|4	|cz	|`A-1→A, 2→Q`							|
@@ -98,16 +98,16 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**DTC n,nm**	|*	|69		|5+7*d	|.z	|`FOR i=1 TO d: IF A=n nm→PC: NEXT i, A→H`			|n,nm are .db statements in most assemblers
 |*DTLRA → DTC*	|	|		|	|	|								|
 |**DX**		|1	|05		|6	|..	|`X-1→X, X→DP, 5→Q, Xl→H`					|
-|**DXL**		|1	|25		|7	|..	|`X-1→X, X→DP, (DP)→A, 5→Q, Xl→H`				|
+|**DXL**	|1	|25		|7	|..	|`X-1→X, X→DP, (DP)→A, 5→Q, Xl→H`				|
 |**DY**		|1	|07		|6	|..	|`Y-1→Y, Y→DP, 7→Q, Yl→H`					|
-|**DYS**		|1	|27		|7	|..	|`Y-1→Y, Y→DP, A→(DP), 7→Q, Yl→H`				|
+|**DYS**	|1	|27		|7	|..	|`Y-1→Y, Y→DP, A→(DP), 7→Q, Yl→H`				|
 | 		|	|		|	|	|								|
 |*ETC → DTC*	|	|		|	|	|								|
 |**EXAB**	|1	|DA		|3	|..	|`A↔B`								|
 |**EXAM**	|1	|DB		|3	|..	|`A↔(P)`							|
-|**EXB**		|1	|0B		|6+3*J	|..	|`(P)..(P+J)↔(Q)..(Q+J), P+J+1→P, Q+J+1→Q`			|
+|**EXB**	|1	|0B		|6+3*J	|..	|`(P)..(P+J)↔(Q)..(Q+J), P+J+1→P, Q+J+1→Q`			|
 |**EXBD**	|1	|1B		|7+6*J	|..	|`(P)..(P+J)↔(DP)..(DP+J), P+J+1→P, DP+J→DP`			|
-|**EXW**		|1	|09		|6+3*I	|	|`(P)..(P+I)↔(Q)..(Q+I), P+I+1→P, Q+I+1→Q`			|
+|**EXW**	|1	|09		|6+3*I	|	|`(P)..(P+I)↔(Q)..(Q+I), P+I+1→P, Q+I+1→Q`			|
 |**EXWD**	|1	|19		|7+6*I	|..	|`(P)..(P+I)↔(DP)..(DP+I), P+I+1→P, DP+I→DP`			|
 | 		|	|		|	|	|								|
 |**FILD**	|1	|1F		|4+3*I	|..	|`A→(DP)..(DP+I), DP+I→DP`					|
@@ -115,8 +115,8 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 | 		|	|		|	|	|								|
 |**HALT**²	|1	|7B		|n/a	|?	|Stops the CPU, possible side effects				|
 | 		|	|		|	|	|								|
-|**INA**		|1	|4C		|2	|.z	|`IA-Port→A`							|
-|**INB**		|1	|CC		|2	|.z	|`IB-Port→A`							|
+|**INA**	|1	|4C		|2	|.z	|`IA-Port→A`							|
+|**INB**	|1	|CC		|2	|.z	|`IB-Port→A`							|
 |**INCA**	|1	|42		|4	|cz	|`A+1→A, 2→Q`							|
 |**INCB**	|1	|C2		|4	|cz	|`B+1→B, 3→Q`							|
 |**INCI**	|1	|40		|4	|cz	|`I+1→I, 0→Q`							|
@@ -129,9 +129,9 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |*IPXH → CDN*	|	|		|	|	|								|
 |*IPXL → CUP*	|	|		|	|	|								|
 |**IX**		|1	|04		|6	|..	|`X+1→X, X→DP, 5→Q, Xh→H`					|
-|**IXL**		|1	|24		|7	|..	|`X+1→X, X→DP, (DP)→A, 5→Q`					|
+|**IXL**	|1	|24		|7	|..	|`X+1→X, X→DP, (DP)→A, 5→Q`					|
 |**IY**		|1	|06		|6	|..	|`Y+1→Y, Y→DP, 7→Q, Yh→H`					|
-|**IYS**		|1	|26		|7	|..	|`Y+1→Y, Y→DP, A→(DP), 7→Q`					|
+|**IYS**	|1	|26		|7	|..	|`Y+1→Y, Y→DP, A→(DP), 7→Q`					|
 | 		|	|		|	|	|								|
 |**JP nm**	|3	|79 XX XX	|6	|..	|`nm→PC`							|
 |**JPC nm**	|3	|7F XX XX	|6	|..	|`IF c=1 nm→PC`							|
@@ -150,12 +150,12 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**JRZP n**	|2	|38 XX		|7/4	|..	|`IF z=1 PC+1+n→PC`						|
 |*JST → DTC*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
-|**LDD**		|1	|57		|3	|..	|`(DP)→A`							|
-|**LDM**		|1	|59		|2	|..	|`(P)→A`							|
-|**LDP**		|1	|20		|2	|..	|`P→A`								|
+|**LDD**	|1	|57		|3	|..	|`(DP)→A`							|
+|**LDM**	|1	|59		|2	|..	|`(P)→A`							|
+|**LDP**	|1	|20		|2	|..	|`P→A`								|
 |**LDPC**²	|1	|56	 	|3	|..	|`(PC+1)→A`							|
-|**LDQ**		|1	|21		|2	|..	|`Q→A`								|
-|**LDR**		|1	|22		|2	|..	|`R→A`								|
+|**LDQ**	|1	|21		|2	|..	|`Q→A`								|
+|**LDR**	|1	|22		|2	|..	|`R→A`								|
 |*LDS → CLRA*	|	|		|	|	|								|
 |**LEAVE**	|1	|D8		|2	|..	|`0→(R)`							|(R-1) used
 |**LIA n**	|2	|02 XX		|4	|..	|`n→A`								|
@@ -170,28 +170,28 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**LOOP n**	|2	|2F XX		|10/7	|cz	|`(R)-1→(R), IF c=0 PC+1-n→PC`					|(R-1) used
 |**LP n**	|1	|80+n		|2	|..	|`n→P, 80+n→H`							|`n<3F`
 | 		|	|		|	|	|								|
-|**MVB**		|1	|0A		|5+2*J	|..	|`(Q)..(Q+J)→(P)..(P+J), P+J+1→P, Q+J+1→Q`			|
+|**MVB**	|1	|0A		|5+2*J	|..	|`(Q)..(Q+J)→(P)..(P+J), P+J+1→P, Q+J+1→Q`			|
 |**MVBD**	|1	|1A		|5+4*J	|..	|`(DP)..(DP+J)→(P)..(P+J), P+J+1→P, DP+J→DP`			|
 |**MVDM**	|1	|53		|3	|..	|`(P)→(DP)`							|
 |**MVMD**	|1	|55		|3	|..	|`(DP)→(P)`							|
 |**MVMP**	|1	|54		|3	|..	|`(PC+1)→(P)`							|
-|**MVW**		|1	|08		|5+2*I	|..	|`(Q)...(Q+I)→(P)...(P+I), P+I+1→P, Q+I+1→Q`			|
+|**MVW**	|1	|08		|5+2*I	|..	|`(Q)...(Q+I)→(P)...(P+I), P+I+1→P, Q+I+1→Q`			|
 |**MVWD**	|1	|18		|5+4*I	|..	|`(DP)...(DP+I)→(P)...(P+I), P+I+1→P, DP+I→DP`			|
 |*MVWP → DATA*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
 |**NOPT**	|1	|CE		|3	|..	|none								|alt: 69/6A
 |**NOPW**	|1	|4D		|2	|..	|none								|alt: CD/D3/D9
 | 		|	|		|	|	|								|
-|**ORIA n**	|2	|65 XX		|4	|.z	|<code>A|n→A</code>						|
-|**ORID n**	|2	|D5 XX		|6	|.z	|<code>(DP)|n→(DP), (DP)→(R-1)</code>				|(R-2) used
-|**ORIM n**	|2	|61 XX		|4	|.z	|<code>(P)|n→(P)</code>						|
-|**ORMA**	|1	|47		|3	|.z	|<code>(P)|A→(P)</code>						|
+|**ORIA n**	|2	|65 XX		|4	|.z	|`A\|n→A`							|
+|**ORID n**	|2	|D5 XX		|6	|.z	|`(DP)\|n→(DP), (DP)→(R-1)`					|(R-2) used
+|**ORIM n**	|2	|61 XX		|4	|.z	|`(P)|n→(P)`							|
+|**ORMA**	|1	|47		|3	|.z	|`(P)|A→(P)`							|
 |**OUTA**	|1	|5D		|3	|..	|`(5C)→IA-Port, 5C→Q` (?)					|
 |**OUTB**	|1	|DD		|2	|..	|`(5D)→IB-Port, 5D→Q` (?)					|
 |**OUTC**	|1	|DF		|2	|..	|`(5F)→C-PORT`							|
 |**OUTF**	|1	|5F		|3	|..	|`(5E)→F0-Port, 5E→Q` (?)					|
 | 		|	|		|	|	|								|
-|**POP**		|1	|5B		|2	|..	|`(R)→A, R+1→R`							|
+|**POP**	|1	|5B		|2	|..	|`(R)→A, R+1→R`							|
 |**PTC n,nm**	|4	|7A		|9?	|..	|`n→d,nm→(R-1,R-2), R-2→R`					|n,nm are .db statements in most assemblers
 |*PTJ →PTC*	|	|		|	|	|								|
 |**PUSH**	|1	|34		|3	|..	|`A→(R), R-1→R`							|
@@ -200,29 +200,29 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |*READ → LDPC*	|	|		|	|	|								|
 |*READM → MVMP*	|	|		|	|	|								|
 |**RC**		|1	|D1		|2	|01	|`0→c, 1→z`							|
-|**RTN**		|1	|37		|4	|..	|`(R-1,R-2)→PC, R+2→R, PC-H→H`					|
+|**RTN**	|1	|37		|4	|..	|`(R-1,R-2)→PC, R+2→R, PC-H→H`					|
 |*RZ n → LIIH*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
-|**SBB**		|1	|15		|5	|cz	|`(P)-1→(P), (P+1)-B-c→(P+1), P+1→P`				|
+|**SBB**	|1	|15		|5	|cz	|`(P)-1→(P), (P+1)-B-c→(P+1), P+1→P`				|
 |**SBCM**	|1	|C5		|3	|cz	|`(P)-A-c→(P)`							|
 |**SBIA n**	|2	|75 XX		|4	|cz	|`A-n→A`							|
 |**SBIM n**	|2	|71 XX		|4	|cz	|`(P)-n→(P)`							|
-|**SBM**		|1	|45		|3	|cz	|`(P)-A→(P)`							|
-|**SBN**		|1	|0D		|7+3*I	|cz	|`(P)-A→(P), (P-I)-c→(P-I), P-I-1→P, BCD`			|
-|**SBW**		|1	|0F		|7+3*I	|cz	|`(P)-(Q)→(P), (P-I)-(Q-I)-c→(P-I), P-I-1→P, Q-I-2→Q, BCD`	|
+|**SBM**	|1	|45		|3	|cz	|`(P)-A→(P)`							|
+|**SBN**	|1	|0D		|7+3*I	|cz	|`(P)-A→(P), (P-I)-c→(P-I), P-I-1→P, BCD`			|
+|**SBW**	|1	|0F		|7+3*I	|cz	|`(P)-(Q)→(P), (P-I)-(Q-I)-c→(P-I), P-I-1→P, Q-I-2→Q, BCD`	|
 |**SC**		|1	|D0		|2	|11	|`1→c, 1→z`							|
 |*SETT →PTC*	|	|		|	|	|								|
 |**SL**		|1	|5A		|2	|c.	|`A<<1, c→A7, A0→c`						|
-|**SLW**		|1	|1D		|5+I	|..	|`(P)<<4 [I+1 bytes], P-I-1→P`					|
+|**SLW**	|1	|1D		|5+I	|..	|`(P)<<4 [I+1 bytes], P-I-1→P`					|
 |**SR**		|1	|D2		|2	|c.	|`A>>1, c→A0, A7→c`						|
-|**SRW**		|1	|1C		|5+I	|..	|`(P)>>4 [I+1 bytes], P+I+1→P`					|
+|**SRW**	|1	|1C		|5+I	|..	|`(P)>>4 [I+1 bytes], P+I+1→P`					|
 |**STH**²	|1	|33		|2	|..	|`A→H`, (theoretically `A→S`)					|
-|**STD**		|1	|52		|2	|..	|`A→(DP)`							|
-|**STP**		|1	|30		|2	|..	|`A→P, A→H`							|
-|**STQ**		|1	|31		|2	|..	|`A→Q, A→H`							|
-|**STR**		|1	|32		|2	|..	|`A→R, A→H`							|
+|**STD**	|1	|52		|2	|..	|`A→(DP)`							|
+|**STP**	|1	|30		|2	|..	|`A→P, A→H`							|
+|**STQ**	|1	|31		|2	|..	|`A→Q, A→H`							|
+|**STR**	|1	|32		|2	|..	|`A→R, A→H`							|
 |*STS → STH*	|	|		|	|	|								|
-|**SWP**		|1	|58		|2	|..	|<code>[A>>4|A<<4]→A</code>					|
+|**SWP**	|1	|58		|2	|..	|`[A>>4\|A<<4]→A`						|
 |*SZ →CPID*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
 |**TEST n**	|2	|6B XX		|4	|.z	|`Test-byte&n`							|
