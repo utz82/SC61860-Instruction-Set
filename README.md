@@ -238,6 +238,7 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |*WRIT → NOPW*	|	|		|	|	|								|
 
 ¹ Where two numbers are given, the first represents the cycle count for a branch taken, and the second represents the cycle count for a branch not taken.
+
 ² Undocumented instruction. May not work as intended depending on the SC61860 version used.
 
 All numeric values are assumed to be hexadecimal, unless stated otherwise.
