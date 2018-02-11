@@ -2,14 +2,14 @@
 
 ## About
 
-The SC61860 is an 8-bit CPU developed by Hitachi, using the ESR-H architecture. It's most prominent use was in various pocket computers and organizers produced by Sharp in the 1980s, notably the PC-12xx, PC13xx, and PC-14xx series.
+The SC61860 is an 8-bit CPU developed by Hitachi, using the ESR-H architecture. Its most prominent use was in various pocket computers and organizers produced by Sharp in the 1980s, notably the PC-12xx, PC13xx, and PC-14xx series.
 
 Despite its age, various details about this CPU remain shrouded by obscurity. If you have any additional information and would like to contribute to this documentation effort, please feel free to open an issue or make a pull request.
 
 
 ## Architecture
 
-* little endian
+* little-endian
 * no interrupts
 * 8-bit data bus
 * 64 KB address space
@@ -51,7 +51,7 @@ vOP1	|0x10-0x17		|Internal BCD adjust register	|
 
 ¹ undocumented register
 
-² The P, Q, and R registers are treated as 7 bit internally, but seen as 8-bit from the data bus. Hence, they can be read and written to as 8 bit registers.
+² The P, Q, and R registers are treated as 7-bit internally, but seen as 8-bit from the data bus. Hence, they can be read and written to as 8-bit registers.
 
 The system stack starts at internal RAM address 0x5B and grows downwards towards address 0x0C. The I/O ports IA, IB, and F0 are mapped to the internal RAM addresses 0x5B-0x5E.
 
@@ -246,7 +246,7 @@ All numeric values are assumed to be hexadecimal, unless stated otherwise.
 The exact functionality of the H register is unknown, the information provided here is mostly guesswork.
 
 
-### Unknown Opcodes
+### Unknown opcodes
 
 In addition to the above, the following opcodes are also undocumented, and their effect is unknown:
 
