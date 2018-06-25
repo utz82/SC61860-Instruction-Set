@@ -199,7 +199,10 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |*RA → CLRA*	|	|		|	|	|								|
 |*READ → LDPC*	|	|		|	|	|								|
 |*READM → MVMP*	|	|		|	|	|								|
-|**RC**		|1	|D1		|2	|01	|`0→c, 1→z`							|
+|**RA**		|1	|23		|2	|	|`0→A`								|
+|**RC**		|1	|D1		|2	|	|`0→c, 1→z`							|
+|**READ**	|1	|56		|3	|	|`(PC+1)→A`							|
+|**READM**	|1	|54		|3	|	|`(PC+1)→(PC)`							|
 |**RTN**	|1	|37		|4	|..	|`(R-1,R-2)→PC, R+2→R, PC-H→H`					|
 |*RZ n → LIIH*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
@@ -302,5 +305,6 @@ Use the commands as follows:
 * ftp://ftp.ifhe.de/public/SHARP_PC/1401.02/Infos/
 * https://github.com/mamedev/mame/tree/master/src/devices/cpu/sc61860
 * https://web.archive.org/web/20090910193610/http://www.thimet.de/CalcCollection/Calculators/Sharp-PC-1403/Machine-Language/Machine-Language.html
+* Saretz, Bernd (1986), ''Le Grand Livre du Langage Machine des Sharp PC'', Becker & Partner, Montpellier -ISBN 3-924 986-20-7
 
 Special thanks to [Torsten Mücker](http://www.peil-partner.de/ifhe.de/sharp/) for his in-depth research on the ESR-H architecture.
