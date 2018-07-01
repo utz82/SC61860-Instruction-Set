@@ -197,9 +197,9 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**PUSH**	|1	|34		|3	|..	|`A→(R), R-1→R`							|
 | 		|	|		|	|	|								|
 |*RA → CLRA*	|	|		|	|	|								|
+|**RC**		|1	|D1		|2	|01	|`0→c, 1→z`							|
 |*READ → LDPC*	|	|		|	|	|								|
 |*READM → MVMP*	|	|		|	|	|								|
-|**RC**		|1	|D1		|2	|01	|`0→c, 1→z`							|
 |**RTN**	|1	|37		|4	|..	|`(R-1,R-2)→PC, R+2→R, PC-H→H`					|
 |*RZ n → LIIH*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
