@@ -40,7 +40,7 @@ Despite its age, various details about this CPU remain shrouded by obscurity. If
 |DP	|n/a			|16 bit Data pointer		|
 |PC	|n/a			|16 bit Program counter		|
 | 	|			|				|
-vOP1	|0x10-0x17		|Internal BCD adjust register	|
+|OP1	|0x10-0x17		|Internal BCD adjust register	|
 |OP2	|0x18-0x1f		|Internal BCD adjust register	|
 |OP3	|0x20-0x27		|Internal BCD adjust register	|
 |OP4	|0x28-0x1f		|Internal BCD adjust register	|
