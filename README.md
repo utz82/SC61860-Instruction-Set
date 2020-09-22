@@ -13,7 +13,7 @@ Despite its age, various details about this CPU remain shrouded by obscurity. If
 * no interrupts
 * 8-bit data bus
 * 64 KB address space
-* 8 KB of integrated ROM at 0x0000-0x1FFF, cannot be read by user
+* 8 KB of integrated ROM at 0x0000-0x1FFF, can only be read by DATA instruction
 * 96 bytes of scratchpad memory (internal RAM), used for registers, stack, I/O, and BCD adjustment calculations
 
 
@@ -85,7 +85,7 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**CPMA**	|1	|C7		|3	|cz	|`(P)-A`							|
 |**CUP**	|1	|4F		|1+4*I	|.z	|`I→d, REPT d-1→d, P+1→P UNTIL I=FF\|\|Xin=1`		|
 | 		|	|		|	|	|								|
-|**DATA**	|1	|35		|11+4*I	|..	|`(BA)...(BA+1)→(P)...(P+1)`					|
+|**DATA**	|1	|35		|11+4*I	|..	|`(BA)...(BA+1)→(P)...(P+1)`					|Reads internal ROM for range 0x0000-0x1FFF
 |**DECA**	|1	|43		|4	|cz	|`A-1→A, 2→Q`							|
 |**DECB**	|1	|C3		|4	|cz	|`B-1→B, 3→Q`							|
 |**DECI**	|1	|41		|4	|cz	|`I-1→I, 0→Q`							|
