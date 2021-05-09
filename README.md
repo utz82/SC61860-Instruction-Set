@@ -34,8 +34,8 @@ Despite its age, various details about this CPU remain shrouded by obscurity. If
 |Q²	|n/a			|Internal RAM pointer		|
 |R²	|n/a			|Stack pointer			|
 |S¹	|n/a			|unused				|
-|X	|0x04-0x05		|16 bit RAM pointer		|Xh=0x04, Xl=0x05
-|Y	|0x06-0x07		|16 bit RAM pointer		|Yh=0x06, Yl=0x07
+|X	|0x04-0x05		|16 bit RAM pointer		|Xh=0x05, Xl=0x04
+|Y	|0x06-0x07		|16 bit RAM pointer		|Yh=0x07, Yl=0x06
 |        |			|				|
 |DP	|n/a			|16 bit Data pointer		|
 |PC	|n/a			|16 bit Program counter		|
