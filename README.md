@@ -212,9 +212,9 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**SBW**	|1	|0F		|7+3*I	|cz	|`(P)-(Q)→(P), (P-I)-(Q-I)-c→(P-I), P-I-1→P, Q-I-2→Q, BCD`	|
 |**SC**		|1	|D0		|2	|11	|`1→c, 1→z`							|
 |*SETT →PTC*	|	|		|	|	|								|
-|**SL**		|1	|5A		|2	|c.	|`A<<1, c→A7, A0→c`						|
+|**SL**		|1	|5A		|2	|c.	|`c→A0, A<<1, A7→c`						|
 |**SLW**	|1	|1D		|5+I	|..	|`(P)<<4 [I+1 bytes], P-I-1→P`					|
-|**SR**		|1	|D2		|2	|c.	|`A>>1, c→A0, A7→c`						|
+|**SR**		|1	|D2		|2	|c.	|`c→A7, A>>1, A0→c`						|
 |**SRW**	|1	|1C		|5+I	|..	|`(P)>>4 [I+1 bytes], P+I+1→P`					|
 |**STH**²	|1	|33		|2	|..	|`A→H`, (theoretically `A→S`)					|
 |**STD**	|1	|52		|2	|..	|`A→(DP)`							|
