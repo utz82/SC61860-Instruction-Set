@@ -113,7 +113,7 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**FILD**	|1	|1F		|4+3*I	|..	|`A→(DP)..(DP+I), DP+I→DP`					|
 |**FILM**	|1	|1E		|5+I	|..	|`A→(P)..(P+I), P+I+1→P, A→H`					|
 | 		|	|		|	|	|								|
-|**HALT**²	|1	|7B		|n/a	|?	|Stops the CPU, possible side effects				|
+|**HALT**²	|1	|7B		|n/a	|?	|Stops the CPU, side effects³				|
 | 		|	|		|	|	|								|
 |**INA**	|1	|4C		|2	|.z	|`IA-Port→A`							|
 |**INB**	|1	|CC		|2	|.z	|`IB-Port→A`							|
@@ -241,6 +241,8 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 
 ² Undocumented instruction. May not work as intended depending on the SC61860 version used.
 
+³ On PC-1245, the HALT instruction initiates an infinite test cycle. The CPU will continually generating memory reads, stepping through the entire address space in the process. This dramatically increases power consumption. More information [here](https://github.com/utz82/SC61860-Instruction-Set/issues/6#issuecomment-1073518373).
+
 All numeric values are assumed to be hexadecimal, unless stated otherwise.
 
 The exact functionality of the H register is unknown, the information provided here is mostly guesswork.
@@ -256,7 +258,7 @@ In addition to the above, the following opcodes are also undocumented, and their
 
 ### Using the LOOP command
 
-The LOOP command allows the execution of conditional loops without the use of a register. It is also 1 cycle faster than looping with DECr, JRNZM lloop. 
+The LOOP command allows the execution of conditional loops without the use of a register. It is also 1 cycle faster than looping with DECr, JRNZM lloop.
 Use it as follows:
 
 ```
@@ -265,10 +267,10 @@ Use it as follows:
 lloop: ...
        ...
        LOOP lloop     ;(R)-1→(R), do JRNCM lloop
-```	
+```
 The loop can be broken by executing the LEAVE instruction, which will set (R) to 0.
 
-		
+
 ### Using the PTC/DTC instructions
 
 The PTC/DTC (aka CASE1/CASE2, PTJ/DTJ, CPCAL/DTLRA, SETT/JST) instruction pair forms the hardware implementation of a switchcase. This is a rather size efficient solution, but usually slower than using a jump table.
