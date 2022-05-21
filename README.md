@@ -20,7 +20,7 @@ Despite its age, various details about this CPU remain shrouded by obscurity. If
 ### Registers
 
 |Name	|Location int. RAM	|Function			|Remarks
-|--------|-----------------------|-------------------------------|------------------
+|-------|-----------------------|-------------------------------|------------------
 |A	|0x02			|Accumulator			|
 |B	|0x03			|Secondary Accumulator		|
 |I	|0x00			|Index/Counter			|
@@ -40,10 +40,10 @@ Despite its age, various details about this CPU remain shrouded by obscurity. If
 |DP	|n/a			|16 bit Data pointer		|
 |PC	|n/a			|16 bit Program counter		|
 | 	|			|				|
-|OP1	|0x10-0x17		|Internal BCD adjust register	|
-|OP2	|0x18-0x1f		|Internal BCD adjust register	|
-|OP3	|0x20-0x27		|Internal BCD adjust register	|
-|OP4	|0x28-0x1f		|Internal BCD adjust register	|
+|OP1	|0x10-0x17		|Internal BCD adjust register	|aka Xreg
+|OP2	|0x18-0x1f		|Internal BCD adjust register	|aka Yreg
+|OP3	|0x20-0x27		|Internal BCD adjust register	|aka Zreg
+|OP4	|0x28-0x1f		|Internal BCD adjust register	|aka Wreg
 | 	|			|				|
 |c	|			|Carry flag			|
 |d	|			|Internal counter		|pseudo register
@@ -54,6 +54,8 @@ Despite its age, various details about this CPU remain shrouded by obscurity. If
 ² The P, Q, and R registers are treated as 7-bit internally, but seen as 8-bit from the data bus. Hence, they can be read and written to as 8-bit registers.
 
 The system stack starts at internal RAM address 0x5B and grows downwards towards address 0x0C. The I/O ports IA, IB, and F0 are mapped to the internal RAM addresses 0x5B-0x5E.
+
+Internal RAM registers 0x30 to 0x3F are used by the system and by the BASIC interpreter to hold state information. This internal RAM area should not be changed.
 
 
 ## Instruction Set
@@ -68,7 +70,7 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**ADN**	|1	|0C		|7+3*I	|cz	|`(P)+A→(P)..(P-I)+c→(P-I), P-I-1→P, BCD`			|
 |**ADW**	|1	|0E		|7+3*I	|cz	|`(P)+(Q)→(P)..(P-I)+(Q-I)+c→(P-I), P-I-1→P, Q-I-2→Q, BCD`	|
 |**ANIA n**	|2	|64 XX		|4	|.z	|`A&n→A`							|
-|**ANID n**	|2	|D4 XX		|6	|.z	|`(DP)&n>(DP), (DP)→(R-1)`					|(R-1) used
+|**ANID n**	|2	|D4 XX		|6	|.z	|`(DP)&n→(DP), (DP)→(R-1)`					|(R-1) used
 |**ANIM n**	|2	|60 XX		|4	|.z	|`(P)&n→(P)`							|
 |**ANMA**	|1	|46		|3	|.z	|`(P)&A→(P)`							|
 | 		|	|		|	|	|								|
@@ -83,7 +85,7 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**CPIM n**	|2	|63 XX		|4	|cz	|`(P)-n`							|
 |*CPCAL → PTC*	|	|		|	|	|								|
 |**CPMA**	|1	|C7		|3	|cz	|`(P)-A`							|
-|**CUP**	|1	|4F		|1+4*I	|.z	|`I→d, REPT d-1→d, P+1→P UNTIL I=FF\|\|Xin=1`		|
+|**CUP**	|1	|4F		|1+4*I	|.z	|`I→d, REPT d-1→d, P+1→P UNTIL I=FF\|\|Xin=1`			|
 | 		|	|		|	|	|								|
 |**DATA**	|1	|35		|11+4*I	|..	|`(BA)...(BA+1)→(P)...(P+1)`					|Reads internal ROM for range 0x0000-0x1FFF
 |**DECA**	|1	|43		|4	|cz	|`A-1→A, 2→Q`							|
@@ -113,7 +115,7 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**FILD**	|1	|1F		|4+3*I	|..	|`A→(DP)..(DP+I), DP+I→DP`					|
 |**FILM**	|1	|1E		|5+I	|..	|`A→(P)..(P+I), P+I+1→P, A→H`					|
 | 		|	|		|	|	|								|
-|**HALT**²	|1	|7B		|n/a	|?	|Stops the CPU, side effects³				|
+|**HALT**²	|1	|7B		|n/a	|?	|Stops the CPU, side effects³					|
 | 		|	|		|	|	|								|
 |**INA**	|1	|4C		|2	|.z	|`IA-Port→A`							|
 |**INB**	|1	|CC		|2	|.z	|`IB-Port→A`							|
@@ -203,7 +205,7 @@ The system stack starts at internal RAM address 0x5B and grows downwards towards
 |**RTN**	|1	|37		|4	|..	|`(R-1,R-2)→PC, R+2→R, PC-H→H`					|
 |*RZ n → LIIH*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
-|**SBB**	|1	|15		|5	|cz	|`(P)-1→(P), (P+1)-B-c→(P+1), P+1→P`				|
+|**SBB**	|1	|15		|5	|cz	|`(P)-A→(P), (P+1)-B-c→(P+1), P+1→P`				|
 |**SBCM**	|1	|C5		|3	|cz	|`(P)-A-c→(P)`							|
 |**SBIA n**	|2	|75 XX		|4	|cz	|`A-n→A`							|
 |**SBIM n**	|2	|71 XX		|4	|cz	|`(P)-n→(P)`							|
