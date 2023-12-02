@@ -186,8 +186,8 @@ Internal RAM registers 0x30 to 0x3F are used by the system and by the BASIC inte
 | 		|	|		|	|	|								|
 |**ORIA n**	|2	|65 XX		|4	|.z	|`A\|n→A`							|
 |**ORID n**	|2	|D5 XX		|6	|.z	|`(DP)\|n→(DP), (DP)→(R-1)`					|(R-2) used
-|**ORIM n**	|2	|61 XX		|4	|.z	|`(P)|n→(P)`							|
-|**ORMA**	|1	|47		|3	|.z	|`(P)|A→(P)`							|
+|**ORIM n**	|2	|61 XX		|4	|.z	|`(P)\|n→(P)`							|
+|**ORMA**	|1	|47		|3	|.z	|`(P)\|A→(P)`							|
 |**OUTA**	|1	|5D		|3	|..	|`(5C)→IA-Port, 5C→Q` (?)					|
 |**OUTB**	|1	|DD		|2	|..	|`(5D)→IB-Port, 5D→Q` (?)					|
 |**OUTC**	|1	|DF		|2	|..	|`(5F)→C-PORT`							|
