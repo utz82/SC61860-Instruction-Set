@@ -285,13 +285,13 @@ Handling varies between the various available assemblers. In most cases, the arg
 Use the commands as follows:
 ```
     PTC
-    .db k        ;where k is the number of cases
-    .dw nm       ;where nm is the return address of the subroutines
+    .db k        ; k is the number of cases
+    .dw nm       ; nm is the return address of the subroutines
     DTC
-    .db n        ;where n is the condition: a value that is matched against the A register
-    .dw nm       ;where nm is the call address
-    ...          ;repeat k times
-    .dw nm       ;where nm is a default dummy address to be called
+    .db n        ; n is the condition: a value that is matched against the A register
+    .dw nm       ; nm is the call address
+    ...          ; repeat k times
+    .dw nm       ; nm is a default dummy address to be called
 ```
 
 ## Sources
