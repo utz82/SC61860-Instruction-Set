@@ -200,8 +200,8 @@ Internal RAM registers 0x30 to 0x3F are used by the system and by the BASIC inte
 | 		|	|		|	|	|								|
 |*RA → CLRA*	|	|		|	|	|								|
 |**RC**		|1	|D1		|2	|01	|`0→c, 1→z`							|
-|*READ → LDPC*	|	|		|	|	|								|
-|*READM → MVMP*	|	|		|	|	|								|
+|*READ → LDPC*	|1	|56		|?	|..	|`?→A`								|
+|*READM → MVMP*	|1	|54		|?	|..	|`?→(P)`								|
 |**RTN**	|1	|37		|4	|..	|`(R-1,R-2)→PC, R+2→R, PC-H→H`					|
 |*RZ n → LIIH*	|	|		|	|	|								|
 | 		|	|		|	|	|								|
